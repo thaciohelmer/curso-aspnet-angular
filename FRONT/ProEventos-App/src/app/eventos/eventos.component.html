@@ -1,7 +1,54 @@
-<h1>Eventos do Components</h1>
+<h2>Eventos</h2>
+<hr>
 
-<div *ngFor="let evento of eventos">
-  <p><b>Tema: </b>{{evento.tema}}</p>
-  <p><b>Local:</b> {{evento.local}}</p>
-  <hr>
+<div class="form-inline">
+  <div class="row d-flex">
+    <div class="col-4">
+      <div class="d-flex align-items-center input mb-3">
+        <label class="d-flex align-items-center me-2">Filtro:</label>
+        <input type="search" class="form-control" placehoder="buscar" [(ngModel)]="filterList">
+      </div>
+    </div>
+  </div>
 </div>
+
+<table class="table table-striped ">
+  <thead class="table-dark">
+    <tr>
+      <th class="align-middle">
+        <button class="btn btn-outline-light btn-sm" (click)="imgShow()">{{!showImg ? 'Exibir' : 'Ocultar'}}</button>
+      </th>
+      <th class="align-middle">#</th>
+      <th class="align-middle">Tema</th>
+      <th class="align-middle">Local</th>
+      <th class="align-middle">Data</th>
+      <th class="align-middle">Qtd Pessoas</th>
+      <th class="align-middle">Lote</th>
+      <th class="align-middle">Options</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="eventos && eventos.length">
+    <tr *ngFor="let evento of eventosFiltrados">
+      <td><img [collapse]="!showImg" [isAnimated]="true" src="/assets/{{evento.imagemURL}}" [style.width.px]="widthImg"
+          [style.margin.px]="marginImg">
+      </td>
+      <td class="align-middle">{{evento.eventoId}}</td>
+      <td class="align-middle">{{evento.tema}}</td>
+      <td class="align-middle">{{evento.local}}</td>
+      <td class="align-middle">{{evento.dataEvento}}</td>
+      <td class="align-middle">{{evento.qtdPessoas}}</td>
+      <td class="align-middle">{{evento.lote}}</td>
+      <td class="align-middle">
+        <button type="button" class="btn btn-primary btn-sm my-1 me-2">Editar</button>
+        <button type="button" class="btn btn-danger btn-sm my-1 me-2">Excluir</button>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot *ngIf="!eventos.length">
+    <tr>
+      <td colspan="8" class="text-center">
+        <h4>Nenhum evento encontrado</h4>
+      </td>
+    </tr>
+  </tfoot>
+</table>
